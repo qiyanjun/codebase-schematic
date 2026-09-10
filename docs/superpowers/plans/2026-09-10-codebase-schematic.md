@@ -48,6 +48,9 @@ __pycache__/
 
 # Playwright
 node_modules/
+
+# Subagent-driven-development scratch workspace (ledger, briefs, reports)
+.superpowers/
 ```
 
 - [ ] **Step 2: Write `plugin.json`**
