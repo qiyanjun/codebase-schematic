@@ -1,0 +1,27 @@
+name: validate
+on: [push, pull_request]
+jobs:
+  validate-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python3 tests/validate_plugin.py
+
+  render-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - name: Install render pipeline dependencies
+        working-directory: skills/codebase-schematic/references
+        run: |
+          uv sync
+          uv run playwright install --with-deps chromium
+      - name: Render the example diagram
+        working-directory: skills/codebase-schematic/references
+        run: |
+          uv run python render_excalidraw.py ../../../examples/self/codebase-schematic.excalidraw
+      - name: Verify the PNG was produced
+        run: test -f examples/self/codebase-schematic.png
