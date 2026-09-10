@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #ffffff; overflow: hidden; }
+    #root { display: inline-block; }
+    #root svg { display: block; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import { exportToSvg } from "https://esm.sh/@excalidraw/excalidraw";
+
+    window.renderDiagram = async function (diagram) {
+      try {
+        const data = typeof diagram === "string" ? JSON.parse(diagram) : diagram;
+        const appState = {
+          ...(data.appState || {}),
+          viewBackgroundColor: (data.appState && data.appState.viewBackgroundColor) || "#ffffff",
+          exportWithDarkMode: false,
+          exportBackground: true,
+        };
+
+        const svg = await exportToSvg({
+          elements: data.elements || [],
+          appState,
+          files: data.files || {},
+        });
+
+        const root = document.getElementById("root");
+        root.innerHTML = "";
+        root.appendChild(svg);
+
+        window.__renderComplete = true;
+        window.__renderError = null;
+        return { success: true };
+      } catch (err) {
+        window.__renderComplete = true;
+        window.__renderError = err.message;
+        return { success: false, error: err.message };
+      }
+    };
+
+    window.__moduleReady = true;
+  </script>
+</body>
+</html>
