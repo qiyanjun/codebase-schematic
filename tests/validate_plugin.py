@@ -9,7 +9,12 @@ Checks:
   5. render_template.html does not import the esm.sh bundle with `?bundle` —
      that query param produced a broken transitive dependency path when
      tested directly (see docs/superpowers/specs/2026-09-10-codebase-schematic-design.md)
+  6. every arrow element in every examples/*.excalidraw file has at most one
+     non-null arrowhead — dependency arrows must be one-directional, per
+     SKILL.md / design-methodology.md / element-templates.md / README.md
 """
+import glob
+import json
 import os
 import re
 import sys
@@ -18,6 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILL_DIR = os.path.join(ROOT, "skills", "codebase-schematic")
 SKILL_MD = os.path.join(SKILL_DIR, "SKILL.md")
 RENDER_TEMPLATE = os.path.join(SKILL_DIR, "references", "render_template.html")
+EXAMPLES_DIR = os.path.join(ROOT, "examples")
 MAX_DESC = 1024
 
 
@@ -72,6 +78,29 @@ def main() -> int:
                 "before (a 404 on a @braintree/sanitize-url sub-path). Import the "
                 "package directly instead."
             )
+
+    excalidraw_files = sorted(
+        glob.glob(os.path.join(EXAMPLES_DIR, "**", "*.excalidraw"), recursive=True)
+    )
+    for excalidraw_file in excalidraw_files:
+        rel_path = os.path.relpath(excalidraw_file, ROOT)
+        try:
+            with open(excalidraw_file, encoding="utf-8") as f:
+                doc = json.load(f)
+        except json.JSONDecodeError as e:
+            errors.append(f"{rel_path}: invalid JSON: {e}")
+            continue
+
+        for element in doc.get("elements", []):
+            if element.get("type") != "arrow":
+                continue
+            if element.get("startArrowhead") and element.get("endArrowhead"):
+                errors.append(
+                    f"{rel_path}: arrow '{element.get('id')}' has both "
+                    f"startArrowhead ({element['startArrowhead']!r}) and "
+                    f"endArrowhead ({element['endArrowhead']!r}) set — "
+                    "dependency arrows must be one-directional"
+                )
 
     if errors:
         print(f"{len(errors)} error(s):")

@@ -77,7 +77,7 @@ reference diagram.
 ## Step 4 — Render, view, and fix (mandatory loop)
 
 ```bash
-cd skills/codebase-schematic/references && uv run python render_excalidraw.py <path-to-file.excalidraw>
+cd ${CLAUDE_PLUGIN_ROOT}/skills/codebase-schematic/references && uv run python render_excalidraw.py <path-to-file.excalidraw>
 ```
 
 This produces a PNG next to the `.excalidraw` file. Read it with the Read
@@ -91,7 +91,7 @@ re-render. Repeat until the answer to all of those is yes — typically
 ### First-time setup
 
 ```bash
-cd skills/codebase-schematic/references
+cd ${CLAUDE_PLUGIN_ROOT}/skills/codebase-schematic/references
 uv sync
 uv run playwright install chromium
 ```

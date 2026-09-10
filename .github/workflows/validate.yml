@@ -22,6 +22,7 @@ jobs:
       - name: Render the example diagram
         working-directory: skills/codebase-schematic/references
         run: |
-          uv run python render_excalidraw.py ../../../examples/self/codebase-schematic.excalidraw
-      - name: Verify the PNG was produced
-        run: test -f examples/self/codebase-schematic.png
+          uv run python render_excalidraw.py ../../../examples/self/codebase-schematic.excalidraw --output /tmp/rendered.png
+      - name: Verify the render matches the committed PNG
+        run: |
+          diff <(sha256sum /tmp/rendered.png | cut -d' ' -f1) <(sha256sum examples/self/codebase-schematic.png | cut -d' ' -f1)

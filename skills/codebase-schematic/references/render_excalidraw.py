@@ -74,7 +74,6 @@ def render(
     excalidraw_path: Path,
     output_path: Path | None = None,
     scale: int = 2,
-    max_width: int = 1920,
 ) -> Path:
     """Render an .excalidraw file to PNG. Returns the output PNG path."""
     try:
@@ -82,7 +81,7 @@ def render(
     except ImportError:
         print("ERROR: playwright not installed.", file=sys.stderr)
         print(
-            "Run: cd skills/codebase-schematic/references && uv sync && uv run playwright install chromium",
+            "Run: cd ${CLAUDE_PLUGIN_ROOT}/skills/codebase-schematic/references && uv sync && uv run playwright install chromium",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -104,7 +103,7 @@ def render(
     elements = [e for e in data["elements"] if not e.get("isDeleted")]
     min_x, min_y, max_x, max_y = compute_bounding_box(elements)
     padding = 80
-    viewport_width = min(int(max_x - min_x + padding * 2), max_width)
+    viewport_width = int(max_x - min_x + padding * 2)
     viewport_height = max(int(max_y - min_y + padding * 2), 600)
 
     if output_path is None:
@@ -122,7 +121,7 @@ def render(
             if "Executable doesn't exist" in str(e):
                 print("ERROR: Chromium not installed for Playwright.", file=sys.stderr)
                 print(
-                    "Run: cd skills/codebase-schematic/references && uv run playwright install chromium",
+                    "Run: cd ${CLAUDE_PLUGIN_ROOT}/skills/codebase-schematic/references && uv run playwright install chromium",
                     file=sys.stderr,
                 )
                 sys.exit(1)
@@ -159,16 +158,21 @@ def render(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render an .excalidraw file to PNG")
     parser.add_argument("input", type=Path, help="path to the .excalidraw JSON file")
-    parser.add_argument("--output", "-o", type=Path, default=None)
-    parser.add_argument("--scale", "-s", type=int, default=2)
-    parser.add_argument("--width", "-w", type=int, default=1920)
+    parser.add_argument(
+        "--output", "-o", type=Path, default=None,
+        help="output PNG path (default: same name with .png)",
+    )
+    parser.add_argument(
+        "--scale", "-s", type=int, default=2,
+        help="device scale factor (default: 2)",
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
         print(f"ERROR: file not found: {args.input}", file=sys.stderr)
         sys.exit(1)
 
-    png_path = render(args.input, args.output, args.scale, args.width)
+    png_path = render(args.input, args.output, args.scale)
     print(str(png_path))
 
 

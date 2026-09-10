@@ -50,6 +50,44 @@ descriptive string, not a random one — `"core_rect"` not `"el1"`),
 }
 ```
 
+## Diamond (a branch point)
+
+Same shape as the Rectangle template above but `"type": "diamond"` — the
+classic decision symbol from `design-methodology.md`'s shape-meaning table
+(a router or dispatcher). `color-palette.md` has no dedicated "decision"
+entry in its shape-colors table, so this uses the Secondary component pair
+as a neutral, already-in-palette default.
+
+```json
+{
+  "type": "diamond", "id": "decision_diamond", "x": 100, "y": 100, "width": 140, "height": 100,
+  "strokeColor": "#4338ca", "backgroundColor": "#e0e7ff", "fillStyle": "solid",
+  "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+  "seed": 1006, "version": 1, "versionNonce": 2006, "isDeleted": false,
+  "groupIds": [], "boundElements": [{"id": "decision_label", "type": "text"}],
+  "link": null, "locked": false, "roundness": {"type": 2}
+}
+```
+
+## Entry point / terminal output (ellipse)
+
+A larger ellipse marking where the diagram's flow begins or ends — distinct
+from the small 16px timeline marker dot above. Use the Entry/Trigger colors
+for a starting point; use the Terminal/Output colors instead
+(`strokeColor: "#15803d"`, `backgroundColor: "#dcfce7"`) for an ending
+point. Sized from the real usage in `examples/self/codebase-schematic.excalidraw`.
+
+```json
+{
+  "type": "ellipse", "id": "trigger_ellipse", "x": 80, "y": 286, "width": 210, "height": 100,
+  "strokeColor": "#b45309", "backgroundColor": "#fef3c7", "fillStyle": "solid",
+  "strokeWidth": 2, "strokeStyle": "solid", "roughness": 0, "opacity": 100, "angle": 0,
+  "seed": 1007, "version": 1, "versionNonce": 2007, "isDeleted": false,
+  "groupIds": [], "boundElements": [{"id": "trigger_label", "type": "text"}],
+  "link": null, "locked": false
+}
+```
+
 ## Structural line (a timeline spine, a tree trunk)
 
 ```json
@@ -60,6 +98,25 @@ descriptive string, not a random one — `"core_rect"` not `"el1"`),
   "seed": 1004, "version": 1, "versionNonce": 2004, "isDeleted": false,
   "groupIds": [], "boundElements": null, "link": null, "locked": false,
   "points": [[0, 0], [1600, 0]]
+}
+```
+
+## Dashed stroke (external dependency or a "same thing" connector)
+
+The same line shape as above, but with `"strokeStyle": "dashed"` instead of
+`"solid"`. Used for two distinct purposes per `color-palette.md`: marking
+an external dependency (outside this codebase), or connecting two elements
+that represent the same thing across the diagram — this is a plain
+connector, not a dependency arrow, so it carries no arrowhead.
+
+```json
+{
+  "type": "line", "id": "dashed_same_thing_line", "x": 450, "y": 654, "width": 120, "height": 44,
+  "strokeColor": "#64748b", "backgroundColor": "transparent", "fillStyle": "solid",
+  "strokeWidth": 1, "strokeStyle": "dashed", "roughness": 0, "opacity": 100, "angle": 0,
+  "seed": 1008, "version": 1, "versionNonce": 2008, "isDeleted": false,
+  "groupIds": [], "boundElements": null, "link": null, "locked": false,
+  "points": [[0, 0], [-120, 44]]
 }
 ```
 
@@ -78,9 +135,10 @@ descriptive string, not a random one — `"core_rect"` not `"el1"`),
 }
 ```
 
-Never set both `startArrowhead` and `endArrowhead` on a dependency arrow —
-that draws it as bidirectional, which this skill's methodology explicitly
-rules out.
+Never set both `startArrowhead` and `endArrowhead` to a non-null value on a
+dependency arrow — exactly one end should carry an arrowhead. Setting both
+to a real arrowhead draws it as bidirectional, which this skill's
+methodology explicitly rules out.
 
 ## Top-level document
 
