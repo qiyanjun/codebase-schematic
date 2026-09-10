@@ -1,0 +1,9 @@
+{
+  "name": "codebase-schematic",
+  "displayName": "Codebase Schematic",
+  "version": "0.1.0",
+  "description": "Generates a PNG architecture-overview diagram for a codebase: one schematic showing the single structural fact most worth understanding about how it fits together.",
+  "author": { "name": "Yanjun Qi / Jane" },
+  "license": "MIT",
+  "keywords": ["diagram", "architecture", "excalidraw", "codebase", "schematic"]
+}
