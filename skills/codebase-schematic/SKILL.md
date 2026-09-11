@@ -74,6 +74,12 @@ labels, not literal code snippets or file contents. This skill's whole
 point is one clear architecture argument, not a comprehensive technical
 reference diagram.
 
+Write the `.excalidraw` JSON to a scratch/working location outside the
+target codebase — the session's scratchpad directory if the environment
+provides one, otherwise a temp directory. Don't create files inside the
+repo being diagrammed at this stage; that only happens later, and only if
+asked (see Step 5).
+
 ## Step 4 — Render, view, and fix (mandatory loop)
 
 ```bash
@@ -99,8 +105,11 @@ uv run playwright install chromium
 ## Step 5 — Deliver
 
 Send the PNG (and the `.excalidraw` source, if the person might want to
-edit it) as a file. Offer — don't assume — to embed it in the target
-repo's README; some people want the file, not a README edit.
+edit it) as a file attachment — do not leave the only copies sitting
+uncommitted in the target repo's working tree. Offer — don't assume — to
+also embed the PNG in the target repo's README; only write the files into
+the repo itself (e.g. under `examples/`) if the person accepts that offer
+or otherwise asks for the source to live there.
 
 ## Guardrails
 

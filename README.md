@@ -24,6 +24,45 @@ One diagram style. One argument per diagram. That narrowness is deliberate — s
 
 ---
 
+## Usage
+
+Once installed, just ask for a diagram in a Claude Code conversation, run
+from (or pointed at) the repo you want diagrammed:
+
+```
+Diagram this codebase's architecture.
+```
+
+It also triggers on: "show me the architecture visually," "create a
+schematic of how this project fits together," "visualize this codebase's
+structure," "draw a picture of how this repo is organized."
+
+**Input**: nothing you have to prepare. No flags, no config file. The
+skill reads the target codebase itself — README, manifest files
+(`package.json`, `pyproject.toml`, etc.), directory structure, and entry
+points — the same way Claude would to answer any other question about it.
+There is no separate parser or dependency-extraction tool to feed.
+
+**Output**: two files, delivered as attachments —
+
+- a PNG — the rendered schematic
+- the `.excalidraw` source next to it, so the diagram can be hand-edited
+  later in [excalidraw.com](https://excalidraw.com) or the Excalidraw
+  desktop/VS Code app
+
+They're built in a scratch/working location, not inside the codebase
+being diagrammed — nothing lands in the target repo's working tree by
+default. It will *offer*, never assume, to also embed the PNG in the
+target repo's README, the way this repo's own
+[`examples/self/`](examples/self/) diagram is embedded above; only then
+do the files get written into the repo itself.
+
+Scope: one diagram per invocation, arguing one structural fact about the
+codebase (see [Design philosophy](#design-philosophy) below) — not a
+comprehensive multi-diagram technical reference.
+
+---
+
 ## Design philosophy
 
 **A diagram either argues something or it's a labeled list.** Before any JSON gets written, the skill has to answer one question: *if someone could see only one thing about how this codebase is put together, what should it be?* Common answers — strict layering, a small core fanning out to plugins, a pipeline, a mirrored pair of subsystems — each map to a specific visual pattern, and the skill picks exactly one per diagram. Mixing patterns is treated as a sign the argument wasn't actually narrowed down.
