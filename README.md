@@ -107,6 +107,20 @@ as `${CLAUDE_PLUGIN_ROOT}`), so after `claude plugin update` or a
 reinstall, that directory is replaced and the render pipeline's `.venv`
 needs to be set up again (see Requirements below).
 
+**If you're iterating on this skill locally**: `claude plugin update`
+checks `plugin.json`'s version number, not the actual file contents — if
+you edit and push a fix without bumping `"version"`, `update` will report
+"already at the latest version" and silently keep serving the old code.
+To force a real refresh during development, uninstall and reinstall
+instead:
+
+```bash
+claude plugin uninstall codebase-schematic@codebase-schematic
+claude plugin install codebase-schematic@codebase-schematic
+```
+
+Bumping the version on real changes is the fix for `update` going forward.
+
 ### As an individual skill
 
 ```bash
