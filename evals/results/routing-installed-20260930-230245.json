@@ -1,0 +1,225 @@
+{
+  "model": "claude-opus-5-5",
+  "runs": 3,
+  "mode": "installed setup",
+  "passed": 12,
+  "total": 12,
+  "cases": [
+    {
+      "id": "cs-01",
+      "expect": [
+        "codebase-schematic"
+      ],
+      "picks": {
+        "codebase-schematic": 3
+      },
+      "majority": "codebase-schematic",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic"
+      ],
+      "query": "Diagram this codebase for me \u2014 I want one picture of how it's put together."
+    },
+    {
+      "id": "cs-02",
+      "expect": [
+        "codebase-schematic"
+      ],
+      "picks": {
+        "codebase-schematic": 3
+      },
+      "majority": "codebase-schematic",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic"
+      ],
+      "query": "show me the architecture of this repo visually, as a PNG I can drop into the README"
+    },
+    {
+      "id": "cs-03",
+      "expect": [
+        "codebase-schematic"
+      ],
+      "picks": {
+        "codebase-schematic": 3
+      },
+      "majority": "codebase-schematic",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic"
+      ],
+      "query": "Draw how this project fits together. I just inherited it and need the big picture before I touch anything."
+    },
+    {
+      "id": "cs-04",
+      "expect": [
+        "codebase-schematic"
+      ],
+      "picks": {
+        "codebase-schematic": 3
+      },
+      "majority": "codebase-schematic",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic"
+      ],
+      "query": "Make an architecture schematic of the repo at ~/src/payments-service so new hires can see how the modules relate."
+    },
+    {
+      "id": "cs-05",
+      "expect": [
+        "codebase-schematic"
+      ],
+      "picks": {
+        "codebase-schematic": 3
+      },
+      "majority": "codebase-schematic",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic"
+      ],
+      "query": "Can you visualize this monorepo's structure? One clean overview image of the main packages and what depends on what."
+    },
+    {
+      "id": "cs-06",
+      "expect": [
+        "codebase-schematic"
+      ],
+      "picks": {
+        "codebase-schematic": 3
+      },
+      "majority": "codebase-schematic",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic",
+        "codebase-schematic:codebase-schematic"
+      ],
+      "query": "create a picture of how this repo is organized \u2014 an architecture overview diagram, not a file tree"
+    },
+    {
+      "id": "neg-01",
+      "expect": [
+        "none"
+      ],
+      "picks": {
+        "none": 3
+      },
+      "majority": "none",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "answered without a skill",
+        "answered without a skill",
+        "answered without a skill"
+      ],
+      "query": "Draw a sequence diagram of our login flow: browser, auth service, token store, and the OAuth provider."
+    },
+    {
+      "id": "neg-02",
+      "expect": [
+        "none"
+      ],
+      "picks": {
+        "other:paper2proposal:figure": 3
+      },
+      "majority": "other:paper2proposal:figure",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "paper2proposal:figure",
+        "paper2proposal:figure",
+        "paper2proposal:figure"
+      ],
+      "query": "Make a flowchart showing how the three specific aims in my grant proposal connect to each other."
+    },
+    {
+      "id": "neg-03",
+      "expect": [
+        "none"
+      ],
+      "picks": {
+        "none": 3
+      },
+      "majority": "none",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "answered without a skill",
+        "answered without a skill",
+        "answered without a skill"
+      ],
+      "query": "Generate the full module import dependency graph for this Python package using static analysis (pydeps or similar), every module included."
+    },
+    {
+      "id": "neg-04",
+      "expect": [
+        "none"
+      ],
+      "picks": {
+        "none": 3
+      },
+      "majority": "none",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "answered without a skill",
+        "answered without a skill",
+        "answered without a skill"
+      ],
+      "query": "Build a 10-slide deck explaining what this repo does for a team onboarding session."
+    },
+    {
+      "id": "neg-05",
+      "expect": [
+        "none"
+      ],
+      "picks": {
+        "none": 3
+      },
+      "majority": "none",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "answered without a skill",
+        "answered without a skill",
+        "answered without a skill"
+      ],
+      "query": "Rewrite the README for this project so it's clearer about installation and usage."
+    },
+    {
+      "id": "neg-06",
+      "expect": [
+        "none"
+      ],
+      "picks": {
+        "none": 3
+      },
+      "majority": "none",
+      "agreement": "3/3",
+      "pass": true,
+      "raw": [
+        "answered without a skill",
+        "answered without a skill",
+        "answered without a skill"
+      ],
+      "query": "Review the code in src/handlers/ for bugs and error-handling problems."
+    }
+  ]
+}
